@@ -1,2 +1,7 @@
+import ftpKundensystemService
+import parse
 
-print('hello World')
+ftpKundensystemService.grabFile()
+parsedText = parse.parse_csv()
+parse.parse_to_txt(parsedText)
+
