@@ -1,0 +1,1 @@
+20210622-114003  invoice.txt verarbeitet -- AdamAdler;Bahnhofstrasse1;8000Zuerich;CHE-111.222.333MWST;Kundennummer:K821;RechnungNr21003;TotalCHF1350.00;ZahlungszielohneAbzug30Tage(20.04.2021)
