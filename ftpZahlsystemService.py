@@ -1,21 +1,24 @@
 from ftplib import FTP
-ftp = FTP("134.119.225.245")
-ftp.login("310721-297-zahlsystem", "Berufsschule8005!")
-dirName = "/out/AP18dDahinden"
-ftp.cwd(dirName)
+import re
+def connect():
+    ftp = FTP("134.119.225.245")    
+    ftp.login("310721-297-zahlsystem", "Berufsschule8005!")
+    return ftp
 
-def grabFile():
-    dirName = "/out/AP18dChristen"
-    ftp.cwd(dirName)
-    filename = 'rechnung21003.data'
-    localfile = open(filename, 'wb')
-    ftp.retrbinary('RETR ' + filename, localfile.write, 1024)
+def grabReceipts(dir):
+    ftp = connect()
+    ftp.cwd(dir)
+    for receipt in ftp.nlst():
+        if(re.search("^quittungsfile.*$", receipt)):
+            localfile = open('temp-files/receipts/' + receipt, 'wb')
+            ftp.retrbinary('RETR ' + receipt, localfile.write, 1024)
+            ftp.delete(receipt)
+            localfile.close()
     ftp.quit()
-    localfile.close()
 
-def placeFile():
-    dirName = "/in/AP18dChristen"
-    ftp.cwd(dirName)
-    filename = 'fileName.txt'
-    ftp.storbinary('STOR' + filename, open(filename, 'rb'))
+def placeFile(directory, filename):
+    ftp = connect()
+    ftp.cwd(directory)
+    ftp.storbinary('STOR ' + filename, open('temp-files/invoices/txt/' + filename, 'rb'))
     ftp.quit()
+

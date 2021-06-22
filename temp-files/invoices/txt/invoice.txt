@@ -42,7 +42,7 @@ Rechnung Nr       21003
 
 
 
-Zahlungsziel ohne Abzug 30 Tage (30.08.2020)
+Zahlungsziel ohne Abzug 30 Tage (20.04.2021)
 
 Einzahlungsschein
 
@@ -56,7 +56,7 @@ Einzahlungsschein
 
 
 
-    1350.0                    1350.0     Autoleasing AG
+    1350.00                    1350.00     Autoleasing AG
                                                Gewerbestrasse 100
 0 00000 00000 00000                            5000 Aarau
 

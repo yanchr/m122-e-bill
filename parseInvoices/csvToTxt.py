@@ -1,27 +1,15 @@
-from os import write
-import csv
-from typing import DefaultDict
-
-invoiceFileName = 'rechnung21003.data'
-
-
-def parse_csv():
-    csv_data = []
-    with open(invoiceFileName, 'r') as csvfile:
-        spamreader = csv.reader(csvfile, delimiter=';', quotechar='|')
-        for row in spamreader:
-            csv_data.append(row)
-    return csv_data
+import datetime
 
 def parse_to_txt(billData):
-    invoiceFileTxt = open("files/invoice.txt", "w")
+    invoiceFileTxt = open("temp-files/invoices/txt/invoice.txt", "w")
    
     rechnungsNummer=billData[0][0].split('_')[1]
     auftragsNummer=billData[0][1].split('_')[1]
     absendeOrt=billData[0][2]
     rechnungsDatum=billData[0][3]
     rechungsZeit=billData[0][4]
-    zahlungsZielInTagen=billData[0][5]
+    zahlungsZielInTagen=billData[0][5].split('_')[1]
+    zahlungsZielInDatum = getCalculatedDate(rechnungsDatum, int(zahlungsZielInTagen))
 
     kundenNummer=billData[1][2]
     name=billData[1][3]
@@ -47,9 +35,14 @@ def parse_to_txt(billData):
         totalBetrag += float(mengeMalPreis)
         invoiceFileTxt.write(rechungsText(rechungsPositionsNummer, rechnungsPostitionsBezeichnung, anzahlDerEinheit, preisProEinheit, mengeMalPreis, mehrwertsteuer))
      
-    invoiceFileTxt.write(endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag))
+    invoiceFileTxt.write(endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag, zahlungsZielInTagen, zahlungsZielInDatum))
 
     invoiceFileTxt.close()
+
+def getCalculatedDate(billDate, addDays):
+    date_1 = datetime.datetime.strptime(billDate, "%d.%m.%Y")
+    end_date = date_1 + datetime.timedelta(days=addDays)
+    return end_date.date().__format__("%d.%m.%Y")
 
 def anfangsText(rechnungsNummer, auftragsNummer, absendeOrt, rechungsDatum,
     kundenNummer, name, adresse, wohnort, mwsNummer, endkundenName, endkundenAdresse, endkundenOrt):
@@ -81,7 +74,7 @@ def rechungsText(rechungsPositionsNummer, rechnungsPostitionsBezeichnung, anzahl
     {rechungsPositionsNummer}   {rechnungsPostitionsBezeichnung}              {anzahlDerEinheit}      {preisProEinheit}  CHF      {mengeMalPreis}  {mehrwertsteuer}"""
 
 
-def endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag):
+def endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag, zahlungsZielInTagen, zahlungsZielInDatum):
     return f"""
                                                                 -----------       
                                                 Total CHF         1350.00
@@ -103,7 +96,7 @@ def endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag):
 
 
 
-Zahlungsziel ohne Abzug 30 Tage (30.08.2020)
+Zahlungsziel ohne Abzug {zahlungsZielInTagen} Tage ({zahlungsZielInDatum})
 
 Einzahlungsschein
 
@@ -117,12 +110,12 @@ Einzahlungsschein
 
 
 
-    {totalBetrag}                    {totalBetrag}     {endkundenName}
+    {totalBetrag}0                    {totalBetrag}0     {endkundenName}
                                                {endkundenAdresse}
 0 00000 00000 00000                            {endkundenOrt}
 
-Autoleasing AG
-Gewerbestrasse 100
-5000 Aarau
+{endkundenName}
+{endkundenAdresse}
+{endkundenOrt}
     """
 
