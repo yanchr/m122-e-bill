@@ -1,8 +1,6 @@
 import localMethods
 
 def parse_to_txt(billData):
-    invoiceFileTxt = open("temp-files/invoices/txt/invoice_out.txt", "w")
-   
     rechnungsNummer=billData[0][0].split('_')[1]
     auftragsNummer=billData[0][1].split('_')[1]
     absendeOrt=billData[0][2]
@@ -21,6 +19,12 @@ def parse_to_txt(billData):
     endkundenAdresse=billData[2][3]
     endkundenOrt=billData[2][4]
 
+    path = 'temp-files/invoices/txt/'
+    filename = auftragsNummer + '_' + rechnungsNummer + '_invoice.txt'
+    invoiceFileTxt = open(path + filename, "w")
+   
+    
+
     invoiceFileTxt.write(anfangsText(rechnungsNummer, auftragsNummer, absendeOrt, rechnungsDatum,
     kundenNummer, name, adresse, wohnort, mwsNummer, endkundenName, endkundenAdresse, endkundenOrt))
     
@@ -38,6 +42,7 @@ def parse_to_txt(billData):
     invoiceFileTxt.write(endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag, zahlungsZielInTagen, zahlungsZielInDatum))
 
     invoiceFileTxt.close()
+    return filename
 
 def anfangsText(rechnungsNummer, auftragsNummer, absendeOrt, rechungsDatum,
     kundenNummer, name, adresse, wohnort, mwsNummer, endkundenName, endkundenAdresse, endkundenOrt):

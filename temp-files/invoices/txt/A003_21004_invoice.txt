@@ -2,7 +2,7 @@
 
 
 
-Adam Adler 
+Yanick Adler 
 Bahnhofstrasse 1
 8000 Zuerich
 
@@ -18,7 +18,7 @@ Zürich, den 21.03.2021                               Autoleasing AG
 Kundennummer:      K821
 Auftragsnummer:    A003
 
-Rechnung Nr       21003
+Rechnung Nr       21004
 -----------------------
     1   Einrichten E-Mailclients              6      25.00  CHF      150.00  0.00%
     2   Konfig & Schulung Scanningcenter              1      1200.00  CHF      1200.00  0.00%

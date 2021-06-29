@@ -1,0 +1,4 @@
+20210629-172503  A003_21003_invoice.xml verarbeitet -- Ref:1624980068.712263/Ref:21003/Ref:A003/Ref:12345678/Amt:0001350000/
+20210629-172503  A003_21003_invoice.txt verarbeitet -- YanickAdler;Bahnhofstrasse1;8000Zuerich;CHE-111.222.333MWST;Kundennummer:K821;RechnungNr21003;TotalCHF1350.00;ZahlungszielohneAbzug30Tage(20.04.2021)
+20210629-172503  A003_21004_invoice.txt verarbeitet -- YanickAdler;Bahnhofstrasse1;8000Zuerich;CHE-111.222.333MWST;Kundennummer:K821;RechnungNr21004;TotalCHF1350.00;ZahlungszielohneAbzug30Tage(20.04.2021)
+20210629-172503  A003_21004_invoice.xml verarbeitet -- Ref:1624980070.635414/Ref:21004/Ref:A003/Ref:12345678/Amt:0001350000/

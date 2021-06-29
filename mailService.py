@@ -1,17 +1,35 @@
+# Step 1 - Import required packages
+from email.message import MIMEPart
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from email.mime.text import MIMEText
 import smtplib
-from email.message import EmailMessage
 
-textfile = 'emailtest.txt'
-with open(textfile) as fp:
-    # Create a text/plain message
-    msg = EmailMessage()
-    msg.set_content(fp.read())
+server = smtplib.SMTP_SSL("smtp.gmail.com:465")
+msg = MIMEMultipart()
+ 
+def login():
+    password = "a123456789!"
+    username = "m122.yanick@gmail.com"
+    #server.ehlo()
+    server.login(username, password)
 
-msg['Subject'] = f'The contents of {textfile}'
-msg['From'] = 'yanick.christen@gmail.com'
-msg['To'] = 'yanick.christen@gmail.com'
+def sendMail(message, mail_to, path, filename):
+    msg['From'] = "m122.yanick@gmail.com"
+    msg['To'] = mail_to
+    msg['Subject'] = message
+    msg.attach(MIMEText(message, 'plain'))
 
-# Send the message via our own SMTP server.
-s = smtplib.SMTP('localhost')   
-s.send_message(msg)
-s.quit()
+    print(mail_to)
+    
+
+    jpgpart = MIMEApplication(open(path + '/' + filename, 'rb').read())
+    jpgpart.add_header('Content-Disposition', 'attachment', filename=filename)
+    msg.attach(jpgpart)
+    print('sendet')
+    server.sendmail(msg['From'], msg['To'], msg.as_string())
+
+
+def exitServer():
+    server.quit()
+

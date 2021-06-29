@@ -31,7 +31,9 @@ def parse_to_xml(billData):
         'enkunde_ort': billData[2][4],
         'total_amount': localMethods.getTotalAmount(billData),
     })
-    (Path(file_path_outcome) /'invoice_out.xml').write_text(test)
+    file_name = billData[0][1].split('_')[1] + '_' + billData[0][0].split('_')[1] + '_invoice.xml'
+    (Path(file_path_outcome) /file_name).write_text(test)
+    return file_name
 
 # def parse_to_xml_3(billDate):
 #     filePath = 'temp-files/invoices/xml/invoice_template.xml'
