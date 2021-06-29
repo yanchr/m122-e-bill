@@ -6,12 +6,11 @@ import parseInvoices.csvToXml as csvToXml
 
 
 
-#ftpKundensystemService.grabFile('/out/AP18dChristen')
+ftpKundensystemService.grabFile('/out/AP18dChristen')
 parsedText = dataToCsv.parse_csv('temp-files/invoices/data/rechnung21003.data')
 csvToTxt.parse_to_txt(parsedText)
 csvToXml.parse_to_xml(parsedText)
-ftpZahlsystemService.placeFiles('/in/AP18dChristen', 'invoice')
-# ftpZahlsystemService.grabReceipts('/out/AP18dChristen')
+ftpZahlsystemService.placeFiles('/in/AP18dChristen', 'invoice_out')
 
 # Todo:
 # DONE rechnungs abholen
@@ -23,7 +22,7 @@ ftpZahlsystemService.placeFiles('/in/AP18dChristen', 'invoice')
 # DONE Abholung der Quittung
 # Erstellung der bestätigungsmeldung per Mail
 # Zip erstellen
-#Zip auf KundenServer legen
+# Zip auf KundenServer legen
 
 # Skript 1: abholung rechnung und abgabe
 # Skript 2: Abholen der Quittung, Mail, ZIP

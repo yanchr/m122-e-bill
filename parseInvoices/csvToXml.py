@@ -9,9 +9,10 @@ import localMethods
 
 
 def parse_to_xml(billData):
-    filePath = 'temp-files/invoices/xml'
+    file_path_template = 'templates'
+    file_path_outcome = 'temp-files/invoices/xml'
     fileName = 'invoice_template.xml'
-    env = Environment(loader=FileSystemLoader(filePath), trim_blocks=True, lstrip_blocks=True, undefined=StrictUndefined)
+    env = Environment(loader=FileSystemLoader(file_path_template), trim_blocks=True, lstrip_blocks=True, undefined=StrictUndefined)
     t = env.get_template(fileName)
     test = t.render({
         'rechnung_nummer': billData[0][0].split('_')[1],
@@ -30,7 +31,7 @@ def parse_to_xml(billData):
         'enkunde_ort': billData[2][4],
         'total_amount': localMethods.getTotalAmount(billData),
     })
-    (Path(filePath) /'invoices_out.xml').write_text(test)
+    (Path(file_path_outcome) /'invoice_out.xml').write_text(test)
 
 # def parse_to_xml_3(billDate):
 #     filePath = 'temp-files/invoices/xml/invoice_template.xml'

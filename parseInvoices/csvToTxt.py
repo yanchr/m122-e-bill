@@ -1,7 +1,7 @@
 import localMethods
 
 def parse_to_txt(billData):
-    invoiceFileTxt = open("temp-files/invoices/txt/invoice.txt", "w")
+    invoiceFileTxt = open("temp-files/invoices/txt/invoice_out.txt", "w")
    
     rechnungsNummer=billData[0][0].split('_')[1]
     auftragsNummer=billData[0][1].split('_')[1]
