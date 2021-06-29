@@ -1,14 +1,18 @@
 from ftplib import FTP
+import re
+
 ftp = FTP("ftp.haraldmueller.ch")
 ftp.login("schoolerinvoices", "Berufsschule8005!")
 
-def grabFile(dir, fileName):
+def grabFile(dir):
     ftp.cwd(dir)
-    localfile = open('temp-files/invoices/data/' + fileName, 'wb')
-    ftp.retrbinary('RETR ' + fileName, localfile.write, 1024)
-    # ftp.delete(fileName)
+    for invoice in ftp.nlst():
+        if(re.search("^rechnung.*$", invoice)):
+            localfile = open('temp-files/invoices/data/' + invoice, 'wb')
+            ftp.retrbinary('RETR ' + invoice, localfile.write, 1024)
+            #ftp.delete(invoice)
+            localfile.close()
     ftp.quit()
-    localfile.close()
 
 #def placeFile():
 #    dirName = "/in/AP18dChristen"

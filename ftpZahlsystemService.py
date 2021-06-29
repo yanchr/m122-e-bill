@@ -16,9 +16,11 @@ def grabReceipts(dir):
             localfile.close()
     ftp.quit()
 
-def placeFile(directory, filename):
+def placeFiles(directory, filename):
     ftp = connect()
+    print('connection')
     ftp.cwd(directory)
-    ftp.storbinary('STOR ' + filename, open('temp-files/invoices/txt/' + filename, 'rb'))
+    ftp.storbinary('STOR ' + filename + '.txt', open('temp-files/invoices/txt/' + filename + '.txt', 'rb'))
+    ftp.storbinary('STOR ' + filename + '.xml', open('temp-files/invoices/xml/' + filename + '.xml', 'rb'))
     ftp.quit()
 

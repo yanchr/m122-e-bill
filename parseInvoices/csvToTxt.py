@@ -1,4 +1,4 @@
-import datetime
+import localMethods
 
 def parse_to_txt(billData):
     invoiceFileTxt = open("temp-files/invoices/txt/invoice.txt", "w")
@@ -9,7 +9,7 @@ def parse_to_txt(billData):
     rechnungsDatum=billData[0][3]
     rechungsZeit=billData[0][4]
     zahlungsZielInTagen=billData[0][5].split('_')[1]
-    zahlungsZielInDatum = getCalculatedDate(rechnungsDatum, int(zahlungsZielInTagen))
+    zahlungsZielInDatum =  localMethods.getCalculatedDate(rechnungsDatum, int(zahlungsZielInTagen))
 
     kundenNummer=billData[1][2]
     name=billData[1][3]
@@ -38,11 +38,6 @@ def parse_to_txt(billData):
     invoiceFileTxt.write(endText(endkundenName, endkundenAdresse, endkundenOrt, totalBetrag, zahlungsZielInTagen, zahlungsZielInDatum))
 
     invoiceFileTxt.close()
-
-def getCalculatedDate(billDate, addDays):
-    date_1 = datetime.datetime.strptime(billDate, "%d.%m.%Y")
-    end_date = date_1 + datetime.timedelta(days=addDays)
-    return end_date.date().__format__("%d.%m.%Y")
 
 def anfangsText(rechnungsNummer, auftragsNummer, absendeOrt, rechungsDatum,
     kundenNummer, name, adresse, wohnort, mwsNummer, endkundenName, endkundenAdresse, endkundenOrt):
